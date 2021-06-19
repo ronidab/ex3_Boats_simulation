@@ -134,7 +134,7 @@ ostream& operator<<(ostream& out, const freighterBoat& ship)	{
 
 	out << "Freighter " << ship.name << " at " << ship.curr_Location << ", fuel: " << ship.curr_fuel << ", resistance: " <<
 			ship.resistance << ", " << stat_string << "speed " << ship.curr_speed << " nm/hr, Containers: " << ship.num_of_containers <<
-			", moving to " << (ship.load_status ? "loading" : "unloading") << " destination";
+			", moving to " << (ship.load_status ? "loading" : "unloading") << " destination" << endl;
 
 	return out;
 }

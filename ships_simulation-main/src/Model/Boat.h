@@ -44,7 +44,7 @@ public:
 
     virtual void setCurrSpeed(int currSpeed) { curr_speed = currSpeed; }
 
-    virtual const string &getName() const { return name; }
+    virtual const string &getBoatName() const { return name; }
 
     virtual Status getStatus() const { return status; }
 
