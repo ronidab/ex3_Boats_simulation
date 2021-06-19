@@ -1,6 +1,5 @@
 #include "Location.h"
 #include "Direction.h"
-
 /****************************************/
 Location::Location() : x(0), y(0) {}
 
@@ -31,6 +30,11 @@ Location &Location::operator=(Location &&other) {
 }
 
 /****************************************/
+bool Location::operator !=(const Location& other)	{
+	if( x != other.x || y != other.y )	{ return true; }
+	return false;
+}
+/****************************************/
 void Location::set_x(double new_x) { x = new_x; }
 
 /****************************************/
@@ -46,8 +50,8 @@ int Location::get_y() const { return y; }
 Location Location::next_Location(const Direction &direct, double velocity) const {
 
     Location new_loc;
-    new_loc.set_x(x + velocity*direct.get_vector().x));
-    new_loc.set_y(y + velocity*direct.get_vector().y));
+    new_loc.set_x(x + velocity*direct.get_vector().x);
+    new_loc.set_y(y + velocity*direct.get_vector().y);
 
     return new_loc;
 }

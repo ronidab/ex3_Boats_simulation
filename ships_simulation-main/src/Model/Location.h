@@ -3,6 +3,7 @@
 #include <cmath>
 #include <queue>
 #include <memory>
+#include <string>
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -28,6 +29,7 @@ public:
 	/*operators*/
 	Location& operator=(const Location& other);
 	Location& operator=(Location&& other);
+	bool operator !=(const Location& other);
 
 	/*setters & getters*/
 	void set_x(double new_x);

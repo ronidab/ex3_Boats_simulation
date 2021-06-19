@@ -1,15 +1,11 @@
-//
-// Created by User on 11/06/2021.
-//
-
 #ifndef GAMEOBJ_H_
 #define GAMEOBJ_H_
 /******************************/
 class gameObj	{
     bool update_ready;
 public:
-    gameObj();
-    virtual ~gameObj() = 0;
+    gameObj():update_ready(false)	{}
+    virtual ~gameObj()	{};
     virtual void update() = 0;
 };
 /******************************/

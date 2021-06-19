@@ -1,7 +1,3 @@
-//
-// Created by User on 11/06/2021.
-//
-
 #ifndef EX3_SHIPS_SIMULATION_PATROLBOAT_H
 #define EX3_SHIPS_SIMULATION_PATROLBOAT_H
 #include "Boat.h"
@@ -12,13 +8,13 @@
 
 class patrolBoat : public Boat{
 private:
-    const int MAX_FUEL = 900000;
+    static const int MAX_PAT_FUEL = 900000;
     const int MAX_SPEED = 15;
     const int FUEL_PER_NM = 2000;
     int resistance;
     vector <unique_ptr<Port>> my_Ports;
 public:
-    patrolBoat();
+    patrolBoat(int res):Boat(MAX_PAT_FUEL),resistance(res),my_Ports(vector<unique_ptr<Port> >{})	{}
     void start_journey(const Port& start_Port);
     bool operator <(const cruiserBoat& other) const;
     string toString() const;
@@ -26,4 +22,4 @@ public:
 };
 
 
-#endif //EX3_SHIPS_SIMULATION_PATROLBOAT_H
+#endif

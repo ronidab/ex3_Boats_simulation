@@ -45,7 +45,7 @@ Location Direction::degree_to_vector(const double deg)	{
 /******************************************/
 double Direction::vector_to_degree(const Location& loc)	{return atan(loc.get_y()/loc.get_x());}
 														// derives from calculation: vector's degree = arctan(sin(degree) / cos(degree))
-														//											 = arctan(x/y)
+														//											 = arctan(y/x)
 /******************************************/
 void Direction::normalize()	{
 	double vect_size = sqrt(pow(vect.get_x(),2) + pow(vect.get_y(),2));

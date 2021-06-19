@@ -3,3 +3,4 @@
 //
 
 #include "cruiserBoat.h"
+int i;
