@@ -1,6 +1,3 @@
-//
-// Created by User on 11/06/2021.
-//
 #include "patrolBoat.h"
 
 class cmp {
@@ -13,18 +10,24 @@ public:
     bool operator()(weak_ptr<Port> p1, weak_ptr<Port> p2) {
         if (start_port.get_Location().distance_from(p1.lock()->get_Location()) ==
             start_port.get_Location().distance_from(p2.lock()->get_Location())) {
-            return (p1.getPortName() < p2.getPortName() ? true : false;)
+            return p1.getPortName() < p2.getPortName();
         }
         return start_port.get_Location().distance_from(p1.lock()->get_Location()) <
-               start_port.get_Location().distance_from(p2.lock()->get_Location()) ? true : false;
+               start_port.get_Location().distance_from(p2.lock()->get_Location());
     }
 
 };
 
 
 void patrolBoat::start_patrol(const Port &start_Port) {
+
     std::sort(my_Ports.begin(), my_Ports.end(), cmp(start_Port));
     curr_port_name = start_Port.getPortName();
+
+    /*
+     * 2. set first destination
+     * 3. define boat status
+     */
 }
 
 ostream &operator<<(ostream &out, const patrolBoat &ship) {

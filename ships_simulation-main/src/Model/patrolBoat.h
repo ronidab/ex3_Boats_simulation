@@ -21,8 +21,10 @@ private:
     Status generalStatus;
     Docked_status dockedStatus;
     vector <weak_ptr<Port>> my_Ports;
+    queue <weak_ptr<Port>> new_patrols;
+
 public:
-    patrolBoat(int res):Boat(MAX_PAT_FUEL),resistance(res),my_Ports(vector<weak_ptr<Port>>())	{
+    patrolBoat(int res):Boat(MAX_PAT_FUEL),resistance(res),my_Ports(vector<weak_ptr<Port>>(Model::getInstance().getAllPorts()))	{
         ///*copy all ports vector to - my ports ****
     }
     void start_patrol(const Port& start_Port);
