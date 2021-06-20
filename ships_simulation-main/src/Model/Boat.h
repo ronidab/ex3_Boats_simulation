@@ -1,5 +1,6 @@
 #ifndef EX3_BoatS_SIMULATION_Boat_H
 #define EX3_BoatS_SIMULATION_Boat_H
+
 #include "Direction.h"
 #include "gameObj.h"
 #include "Port.h"
@@ -12,14 +13,17 @@ enum Status {
 
 class Boat : public gameObj {
 protected:
-	/*data members*/
-	const string name;
-	double curr_fuel;
-	Status status;
-	int curr_speed;
-	Direction direction;
+    /*data members*/
+
+    const string name;
+    int resistance;
+    double curr_fuel;
+    Status status;
+    int curr_speed;
+    Direction direction;
     Location curr_Location;
     Location dest_Location;
+    int num_of_containers;
 
     /*data members update*/
     int new_speed;
@@ -27,18 +31,24 @@ protected:
     Status new_status;
     Location new_dest_Location;
     Direction new_Direction;
+    int new_num_of_containers;
 
 public:
-    Boat(double fuel) : name(""),curr_fuel(fuel), status(Stopped), curr_speed(0), direction(Direction()), curr_Location(Location()),
-			 dest_Location(Location()),  new_speed(0), add_fuel(0),new_status(status),
-			 new_dest_Location(dest_Location), new_Direction(Direction()){};
+    Boat(double fuel, int res, int num) : resistance(res), name(""), curr_fuel(fuel), status(Stopped), curr_speed(0),
+                                          direction(Direction()), curr_Location(Location()),
+                                          dest_Location(Location()), new_speed(0), add_fuel(0), new_status(status),
+                                          new_dest_Location(dest_Location), new_Direction(Direction()),
+                                          new_num_of_containers(-1), num_of_containers(num) {};
 
-    virtual ~Boat()	{};
+    virtual ~Boat() {};
 
-    Boat(const Boat&) = delete;
-    Boat(Boat&&) = delete;
-    Boat& operator=(const Boat&) = delete;
-    Boat& operator=(Boat&&) = delete;
+    Boat(const Boat &) = delete;
+
+    Boat(Boat &&) = delete;
+
+    Boat &operator=(const Boat &) = delete;
+
+    Boat &operator=(Boat &&) = delete;
 
     virtual int getCurrSpeed() const { return curr_speed; }
 
@@ -48,9 +58,27 @@ public:
 
     virtual Status getStatus() const { return status; }
 
-    virtual double getCurrFuel() const	{ return curr_fuel; }
+    virtual double getCurrFuel() const { return curr_fuel; }
+
+    virtual int getResistance() { return resistance; }
+
+    virtual void setResistance(int res) { resistance = res;}
 
     virtual void setCurrFuel(double fuel) { curr_fuel = fuel; }
+
+    virtual void setNumOfContainers(int numOfContainers) { new_num_of_containers = numOfContainers; }
+
+    virtual int getNumOfContainers() const { return num_of_containers; }
+
+    virtual Boat& operator++(){
+        resistance++;
+        return *this;
+    }
+
+    virtual Boat& operator--(){
+        resistance--;
+        return *this;
+    }
 
     virtual void executeByStatus(Status new_status) {
 
@@ -60,11 +88,11 @@ public:
                 stop();
                 break;
             case Docked:
-            	new_speed = 0;
+                new_speed = 0;
                 dock();
                 break;
             case Dead:
-            	new_speed = 0;
+                new_speed = 0;
                 dead();
                 break;
             case Move:
@@ -87,8 +115,11 @@ public:
     virtual void setDirection(const Direction &Direction) = 0;
 
     virtual void stop() = 0;
+
     virtual void dock() = 0;
+
     virtual void dead() = 0;
+
     virtual void move() = 0;
 
     virtual string toString() const = 0;

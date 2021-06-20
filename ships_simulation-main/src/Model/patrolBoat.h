@@ -24,7 +24,7 @@ private:
     queue <weak_ptr<Port>> new_patrols;
 
 public:
-    patrolBoat(int res):Boat(MAX_PAT_FUEL),resistance(res),my_Ports(vector<weak_ptr<Port>>(Model::getInstance().getAllPorts()))	{
+    patrolBoat(int res):Boat(MAX_PAT_FUEL),my_Ports(vector<weak_ptr<Port>>())	{
         ///*copy all ports vector to - my ports ****
     }
     void start_patrol(const Port& start_Port);

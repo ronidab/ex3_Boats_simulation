@@ -71,6 +71,3 @@ ostream &operator<<(ostream &out, const patrolBoat &ship) {
 
     return out;
 }
-
-//Patrol_boat Shikishima at (9.95, 1.00), fuel: 880.00 kl, resistance: 10, Moving to Nagoya
-//on course 84.29 deg, speed 10.00 nm/hr
