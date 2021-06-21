@@ -92,18 +92,18 @@ void patrolBoat::setDestLocation(const Location &dest_loc) {
 }
 
 /********************************************/
-//void patrolBoat::ask_fuel() {
-//
-//}
+void patrolBoat::ask_fuel() {
+    //can fuel only if ready to fuel queue is empty
+    Port curr_port = my_dest_ports[cursor];
 
+    if(curr_port.isReadyToFuelEmpty()){
+        curr_port.fuel(this);
+        curr_fuel+=add_fuel;
+        add_fuel=0;
+    }
+    return;
 
-
-//    std::shared_ptr<Boat> me(this);
-//    my_dest_ports[cursor]
-//    my_dest_ports[cursor].lock()->addToQueue(weak_ptr<Boat>(me));
-//    return;
-//
-//}
+}
 
 /********************************************/
 void patrolBoat::stop() {

@@ -3,6 +3,7 @@
 #include "GameObj.h"
 /**************************/
 class Boat;
+class patrolBoat;
 /**************************/
 class Port : public gameObj	{
 
@@ -42,6 +43,7 @@ public:
     /*class functions*/
     void load(int cap);
     void fuel();
+    void fuel(patrolBoat& boat);
     void unload(int cap);
     virtual void update();
 };

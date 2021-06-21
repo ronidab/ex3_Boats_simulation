@@ -77,6 +77,19 @@ void Port::fuel()	{
     }
 }
 /********************************************/
+void Port::fuel(patrolBoat& boat){
+
+    double required_fuel = boat.getMaxFuel() - boat.getCurrFuel();
+
+    // check if fuel action is valid
+    if( required_fuel <= fuel_capacity )	{
+
+        boat.setToAddFuel(required_fuel);
+        new_fuel_capacity = fuel_capacity - required_fuel;
+    }
+}
+
+/********************************************/
 void Port::addToQueue(weak_ptr<Boat> boat){ ready_to_fuel.push(boat); }
 /********************************************/
 void Port::removeFromQueue(weak_ptr<Boat> boat){
