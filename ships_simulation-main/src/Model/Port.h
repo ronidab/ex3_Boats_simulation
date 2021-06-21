@@ -1,23 +1,19 @@
 #ifndef Port_H_
 #define Port_H_
-
-#include <memory>
-#include <queue>
-#include "Boat.h"
 #include "GameObj.h"
-
+/**************************/
 class Boat;
+/**************************/
+class Port : public gameObj	{
 
-/**************************/
-class Port : public gameObj {
-/**************************/
 private:
     /*data members*/
-    string portName;
-    int containers;
     Location loc;
+    int containers;
+    string port_name;
     double fuel_capacity;
-    queue<unique_ptr<Boat> > ready_to_fuel;
+    double fuel_product_per_hr;
+    queue< weak_ptr<Boat> > ready_to_fuel;
 
     /*data members update*/
     int new_containers;
@@ -25,39 +21,26 @@ private:
 
 public:
     /*c'tors & d'tors*/
-    Port(string name) : portName(name) {};
-
+    Port();
     ~Port();
-
-    Port(Port &&) = delete;
-
-    Port(const Location &loc);
-
-    Port(const Port &) = delete;
-
-    void addToQueue(unique_ptr<Boat> &boat);
+    Port(Port&& other);
+    Port(const Port& other);
+    Port(double fuel_capacity, double fuel_product, string& name, const Location& loc);
 
     /*operators*/
-    Port &operator=(Port &&) = delete;
-
-    Port &operator=(const Port &) = delete;
+    Port& operator=(Port&&);
+    Port& operator=(const Port&);
 
     /*setters & getters*/
-    string getPortName() const{ return portName; }
-
-    Location get_Location() const;
-
+    string getPortName() const;
     double get_fuel_cap() const;
-
-    void set_fuel_cap(double new_cap);
+    Location get_Location() const;
+    void addToQueue(weak_ptr<Boat> boat);
 
     /*class functions*/
-    void unload(int cap);
-
     void load(int cap);
-
-    void fuel(int cap);
-
+    void fuel();
+    void unload(int cap);
     virtual void update();
 };
 /**************************/

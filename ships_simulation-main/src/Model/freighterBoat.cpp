@@ -1,14 +1,25 @@
 #include "freighterBoat.h"
 
+freighterBoat(int cont_cap, int res):Boat(MAX_FRI_FUEL, res, cont_cap),MAX_CONTAINERS_CAPACITY(cont_cap),load_status(0),
+                                     warning(0), new_load_status(load_status) {};
+///unload status ???
+///about the num of containers
+
 void freighterBoat::stop()	{
-	new_destPortName = "";
+    dest_port.reset();
 	new_dest_Location = curr_Location;
 }
 
-void freighterBoat::dock()	{ curr_fuel += add_fuel; }
+/*************************************/
+void freighterBoat::dock()	{
+    ask_fuel();
+    curr_fuel += add_fuel;
+    load_status ? load() : unload(to_unload);
+}
+/*************************************/
 
 void freighterBoat::dead()	{}
-
+/*************************************/
 void freighterBoat::move()	{
 
 	if(curr_Location.distance_from(dest_Location) <= 0.1)	{ new_status = Docked; }
@@ -29,64 +40,60 @@ void freighterBoat::move()	{
 	}
 
 }
-
+/*************************************/
 void freighterBoat::setDestLocation(const Location &destLocation){
     new_dest_Location = destLocation;
 }
-
+/*************************************/
 void freighterBoat::setDirection()	{
 	new_Direction = Direction(dest_Location,curr_Location);
 	new_Direction.normalize();
 }
-
-void freighterBoat::setPort(string destPortName, int speed, bool b, const Location& dest_loc){
+/*************************************/
+void freighterBoat::setPort(std::shared_ptr<Port>& port, int speed, bool b, const Location& dest_loc){
     new_status = Move;
     new_speed = speed;
     setDestLocation(dest_loc);
     setToLoad(b);
     setDirection();
-    this->new_destPortName = destPortName;
+    this->new_dest_port = port;
+    ///suposed to be new ???
 
 }
+/*************************************/
 
 void freighterBoat::setToLoad(bool b)	{new_load_status = b;}
+/*************************************/
+void freighterBoat::unload(	int containers ){
 
-void freighterBoat::unload(int containers, unique_ptr<Port>& port){
+    if(new_num_of_containers < containers)	{
 
-	if( new_status == Docked ){
-
-		if(new_num_of_containers < containers){
-
-        	port->load(new_num_of_containers);
-            new_num_of_containers = 0;
-            warning = 1;
-        }
-
-        else{
-            port->load(containers);
-            new_num_of_containers -= containers;
-        }
+        dest_port.lock()->load(new_num_of_containers);
+        new_num_of_containers = 0;
+        warning = 1;
 
         return;
     }
-}
 
-void freighterBoat::load(unique_ptr<Port>& port) {
-    port->unload(MAX_CONTAINERS_CAPACITY-new_num_of_containers);
+    dest_port.lock()->load(containers);
+    new_num_of_containers -= containers;
+}
+/*************************************/
+
+void freighterBoat::load() {
+    dest_port.lock()->unload(MAX_CONTAINERS_CAPACITY-new_num_of_containers);
     new_num_of_containers = MAX_CONTAINERS_CAPACITY;
 
 }
+/*************************************/
+void freighterBoat::ask_fuel()	{
 
-void freighterBoat::fuel(unique_ptr<Port>& port)	{
+    std::shared_ptr<Boat> me(this);
+    dest_port.lock()->addToQueue(weak_ptr<Boat>(me));
+    return;
 
-	if( new_status == Docked )	{
-	    std::unique_ptr<Boat> me(this);
-	    port->addToQueue(me);
-	    return;
-	}
-
-	 // exception if code reaches here
 }
+/*************************************/
 
 void freighterBoat::update()	{
 
@@ -97,13 +104,13 @@ void freighterBoat::update()	{
 	warning = false;
 	status = new_status;
 	curr_speed = new_speed;
+    dest_port = new_dest_port;
 	direction = new_Direction;
 	load_status = new_load_status;
-	destPortName = new_destPortName;
 	dest_Location = new_dest_Location;
 	num_of_containers = new_num_of_containers;
 }
-
+/*************************************/
 ostream& operator<<(ostream& out, const freighterBoat& ship)	{
 
 	string stat_string = "";
@@ -139,3 +146,4 @@ ostream& operator<<(ostream& out, const freighterBoat& ship)	{
 	return out;
 }
 
+/*************************************/

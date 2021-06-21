@@ -1,31 +1,33 @@
-//
-// Created by User on 19/06/2021.
-//
-
 #ifndef EX3_BOATS_SIMULATION_MODEL_H
 #define EX3_BOATS_SIMULATION_MODEL_H
-#include "Port.h"
-#include "Boat.h"
-#include <vector>
-
-
-
+#include "gameObj.h"
+/***********************************/
 class Model {
+
 private:
     static unique_ptr<Model> inst;
     vector<shared_ptr<Port>> all_ports;
-    vector<unique_ptr<Boat>> all_boats;
-    Model(): all_ports(vector<shared_ptr<Port>>()),all_boats(vector<unique_ptr<Boat>>()){};
+    vector<shared_ptr<Boat>> all_boats;
+    Model(): all_ports(vector<shared_ptr<Port>>()),all_boats(vector<shared_ptr<Boat>>()){}; // user creation is forbidden.
+
 public:
-    static Model& getInstance();
+    /*exceptions*/
+
+
+    /*c'tors & d'tors*/
     Model (const Model&) = delete;
-    Model& operator = (const Model&) = delete;
     Model(const Model&&) = delete;
+
+    /*operators*/
+    Model& operator = (const Model&) = delete;
     Model& operator= (const Model&&) = delete;
-    vector<shared_ptr<Port>>& getAllPorts(){return all_ports;}
-    Port& findPortByLocation(const Location &loc);
+
+    /*class functions*/
+    static Model& getInstance();
+    int findPortByLocation(const Location &loc);
+    vector<shared_ptr<Port>>& getAllPorts();
+    vector<shared_ptr<Port>>& getAllBoats();
 
 };
-
-
-#endif //EX3_BOATS_SIMULATION_MODEL_H
+/***********************************/
+#endif

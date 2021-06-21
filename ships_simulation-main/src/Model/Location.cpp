@@ -1,3 +1,5 @@
+#include "Boat.h"
+#include "Port.h"
 #include "Location.h"
 #include "Direction.h"
 /****************************************/
@@ -30,10 +32,9 @@ Location &Location::operator=(Location &&other) {
 }
 
 /****************************************/
-bool Location::operator !=(const Location& other)	{
-	if( x != other.x || y != other.y )	{ return true; }
-	return false;
-}
+bool Location::operator !=(const Location& other)	{ return ((x != other.x) || (y != other.y)); }
+/****************************************/
+bool Location::operator ==(const Location& other)	{ return ((x == other.x) && (y == other.y)); }
 /****************************************/
 void Location::set_x(double new_x) { x = new_x; }
 
@@ -47,9 +48,21 @@ int Location::get_x() const { return x; }
 int Location::get_y() const { return y; }
 
 /****************************************/
+Location::operator string() const	{
+    string output = "";
+    output += "(";
+    output += to_string(x);
+    output += ",";
+    output += to_string(y);
+    output += ")";
+
+    return output;
+}
+/****************************************/
 Location Location::next_Location(const Direction &direct, double velocity) const {
 
     Location new_loc;
+
     new_loc.set_x(x + velocity*direct.get_vector().x);
     new_loc.set_y(y + velocity*direct.get_vector().y);
 

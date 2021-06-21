@@ -10,11 +10,17 @@ using namespace std;
 enum Status {
     Stopped, Docked, Dead, Move
 };
+/*****************************************/
+class freighterBoat;
+class cruiserBoat;
+class patrolBoat;
+/*****************************************/
 
 class Boat : public gameObj {
 protected:
     /*data members*/
 
+    const double MAX_BOAT_FUEL;
     const string name;
     int resistance;
     double curr_fuel;
@@ -34,7 +40,7 @@ protected:
     int new_num_of_containers;
 
 public:
-    Boat(double fuel, int res, int num) : resistance(res), name(""), curr_fuel(fuel), status(Stopped), curr_speed(0),
+    Boat(double fuel, int res, int num) :MAX_BOAT_FUEL(fuel), resistance(res), name(""), curr_fuel(fuel), status(Stopped), curr_speed(0),
                                           direction(Direction()), curr_Location(Location()),
                                           dest_Location(Location()), new_speed(0), add_fuel(0), new_status(status),
                                           new_dest_Location(dest_Location), new_Direction(Direction()),
@@ -57,6 +63,8 @@ public:
     virtual const string &getBoatName() const { return name; }
 
     virtual Status getStatus() const { return status; }
+    virtual const string &getName() const { return name; }
+    virtual double getMaxFuel() const	{ return MAX_BOAT_FUEL; }
 
     virtual double getCurrFuel() const { return curr_fuel; }
 
