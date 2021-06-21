@@ -41,7 +41,7 @@ protected:
     int new_num_of_containers;
 
 public:
-    Boat(double fuel, int res, int num) :MAX_BOAT_FUEL(fuel), resistance(res), name(""), curr_fuel(fuel), status(Stopped), curr_speed(0),
+    Boat(string& boat_name,double fuel=0, int res=0, int num=0) :name(boat_name),MAX_BOAT_FUEL(fuel), resistance(res), curr_fuel(fuel), status(Stopped), curr_speed(0),
                                           direction(Direction()), curr_Location(Location()),
                                           dest_Location(Location()), new_speed(0), add_fuel(0), new_status(status),
                                           new_dest_Location(dest_Location), new_Direction(Direction()),

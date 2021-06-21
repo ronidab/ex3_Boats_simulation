@@ -23,7 +23,7 @@ private:
 
 public:
     /*c'tors & d'tors*/
-    freighterBoat(int cont_cap, int res);
+    freighterBoat(string& boat_name,int cont_cap, int res);
     ~freighterBoat()	{}
 
     /*getters & setters*/

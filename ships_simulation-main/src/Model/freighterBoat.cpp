@@ -1,6 +1,6 @@
 #include "freighterBoat.h"
 
-freighterBoat::freighterBoat(int cont_cap, int res):Boat(MAX_FRI_FUEL, res, cont_cap),MAX_CONTAINERS_CAPACITY(cont_cap),load_status(0),
+freighterBoat::freighterBoat(string& boat_name,int cont_cap, int res):Boat(boat_name,MAX_FRI_FUEL, res, cont_cap),MAX_CONTAINERS_CAPACITY(cont_cap),load_status(0),
                                      warning(0), new_load_status(load_status),to_unload(0) {};
 
 /*************************************/

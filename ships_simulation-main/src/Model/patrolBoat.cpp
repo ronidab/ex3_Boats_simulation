@@ -23,9 +23,8 @@ public:
 patrolBoat::~patrolBoat() {}
 
 /********************************************/
-patrolBoat::patrolBoat(int res) : Boat(MAX_PAT_FUEL), cursor(0), resistance(res), curr_dest_name(""), dockedStatus(0),
-                                  my_dest_ports(), new_patrols(queue<weak_ptr<Port> >{}) {
-    ///TODO:*copy all ports vector to - my ports ****
+patrolBoat::patrolBoat(string &boat_name, int res) : Boat(boat_name, MAX_PAT_FUEL, res), cursor(0),dockedStatus(fuel){
+//    /TODO:*copy all ports vector to - my ports ****
 }
 
 /********************************************/
@@ -36,7 +35,6 @@ void patrolBoat::start_patrol(const Port &start_Port, double speed) {
     setDestLocation(my_dest_ports[cursot]);
     setCurrSpeed(speed);
     new_status = Move;
-
 }
 
 /********************************************/
@@ -96,10 +94,10 @@ void patrolBoat::ask_fuel() {
     //can fuel only if ready to fuel queue is empty
     Port curr_port = my_dest_ports[cursor];
 
-    if(curr_port.readyToFuelEmpty()){
+    if (curr_port.readyToFuelEmpty()) {
         curr_port.fuel(this);
-        curr_fuel+=add_fuel;
-        add_fuel=0;
+        curr_fuel += add_fuel;
+        add_fuel = 0;
     }
     return;
 

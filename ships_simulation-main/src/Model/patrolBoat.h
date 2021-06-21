@@ -19,7 +19,6 @@ private:
     static const int MAX_PAT_FUEL = 900000;
     const int MAX_SPEED = 15;
     const int FUEL_PER_NM = 2000;
-    const int resistance;
     at_port_status dockedStatus;
     vector<weak_ptr<Port>> my_dest_ports;
     queue <pair<double, weak_ptr<Port>>> new_patrols;       // <speed, start port>
@@ -28,7 +27,7 @@ public:
     /*c'tors & d'tors*/
     ~patrolBoat();
 
-    patrolBoat(int res);
+    patrolBoat(string& boat_name,int res);
 
     /*operators*/
     friend ostream &operator<<(ostream &out, const patrolBoat &ship);
