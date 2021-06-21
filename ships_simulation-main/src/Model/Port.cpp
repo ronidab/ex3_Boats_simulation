@@ -21,7 +21,7 @@ Port::Port(double fuel_capacity, double fuel_product, string& name, const Locati
 /********************************************/
 Port::~Port()	{}
 /********************************************/
-bool Port::isReadyToFuelEmpty(){
+bool Port::readyToFuelEmpty(){
     return ready_to_fuel.empty();
 }
 /********************************************/

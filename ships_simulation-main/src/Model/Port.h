@@ -38,7 +38,7 @@ public:
     Location get_Location() const;
     void addToQueue(weak_ptr<Boat> boat);
     void removeFromQueue(weak_ptr<Boat> boat);
-    bool isReadyToFuelEmpty();
+    bool readyToFuelEmpty();
 
     /*class functions*/
     void load(int cap);

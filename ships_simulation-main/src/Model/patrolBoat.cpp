@@ -96,7 +96,7 @@ void patrolBoat::ask_fuel() {
     //can fuel only if ready to fuel queue is empty
     Port curr_port = my_dest_ports[cursor];
 
-    if(curr_port.isReadyToFuelEmpty()){
+    if(curr_port.readyToFuelEmpty()){
         curr_port.fuel(this);
         curr_fuel+=add_fuel;
         add_fuel=0;
