@@ -25,14 +25,15 @@ protected:
     int resistance;
     double curr_fuel;
     Status status;
-    int curr_speed;
+    double curr_speed;
     Direction direction;
     Location curr_Location;
     Location dest_Location;
     int num_of_containers;
+    bool waiting_for_fuel;
 
     /*data members update*/
-    int new_speed;
+    double new_speed;
     double add_fuel;
     Status new_status;
     Location new_dest_Location;
@@ -44,7 +45,7 @@ public:
                                           direction(Direction()), curr_Location(Location()),
                                           dest_Location(Location()), new_speed(0), add_fuel(0), new_status(status),
                                           new_dest_Location(dest_Location), new_Direction(Direction()),
-                                          new_num_of_containers(-1), num_of_containers(num) {};
+                                          new_num_of_containers(-1), num_of_containers(num),waiting_for_fuel(false) {};
 
     virtual ~Boat() {};
 
@@ -72,7 +73,9 @@ public:
 
     virtual void setResistance(int res) { resistance = res;}
 
-    virtual void setCurrFuel(double fuel) { curr_fuel = fuel; }
+    virtual void setToAddFuel(double fuel) { add_fuel = fuel; }
+
+    virtual void setWaitingForFuel(bool b){waiting_for_fuel=b;}
 
     virtual void setNumOfContainers(int numOfContainers) { new_num_of_containers = numOfContainers; }
 
@@ -116,11 +119,13 @@ public:
 
     virtual const Location &getDestLocation() const { return dest_Location; }
 
-    virtual void setDestLocation(const Location &destLocation) = 0;
+    virtual void setDestLocation(const Location &destLocation) {new_dest_Location=destLocation;}
 
     virtual const Direction &getDirection() const { return direction; }
 
-    virtual void setDirection(const Direction &Direction) = 0;
+    virtual void setDirection(const Direction &direction){ new_Direction = direction;}
+
+    virtual void ask_fuel() = 0;
 
     virtual void stop() = 0;
 

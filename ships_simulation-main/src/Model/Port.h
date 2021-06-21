@@ -13,7 +13,7 @@ private:
     string port_name;
     double fuel_capacity;
     double fuel_product_per_hr;
-    queue< weak_ptr<Boat> > ready_to_fuel;
+    deque < weak_ptr<Boat> > ready_to_fuel;
 
     /*data members update*/
     int new_containers;
@@ -36,6 +36,8 @@ public:
     double get_fuel_cap() const;
     Location get_Location() const;
     void addToQueue(weak_ptr<Boat> boat);
+    void removeFromQueue(weak_ptr<Boat> boat);
+    bool isReadyToFuelEmpty();
 
     /*class functions*/
     void load(int cap);
