@@ -5,7 +5,7 @@
 /***********************************/
 class Model {
 
-private:
+protected:
     static unique_ptr<Model> inst;
     vector<shared_ptr<Port>> all_ports;
     vector<shared_ptr<Boat>> all_boats;
@@ -25,9 +25,18 @@ public:
 
     /*class functions*/
     static Model& getInstance();
+    bool isBoatExist(const string& boat_name );
+    bool isPortExist(const string& port_name );
+    weak_ptr<Boat> getBoat(const string& boat_name);
+    weak_ptr<Boat> getPort(const string& portt_name);
+
     int findPortByLocation(const Location &loc);
     vector<shared_ptr<Port>>& getAllPorts();
     vector<shared_ptr<Port>>& getAllBoats();
+
+    void status();
+    void go();
+    void create(); ///****5 args required
 
 };
 /***********************************/

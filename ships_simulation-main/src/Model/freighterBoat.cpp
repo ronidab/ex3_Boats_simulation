@@ -24,7 +24,10 @@ void freighterBoat::dead()	{}
 /*************************************/
 void freighterBoat::move()	{
 
-	if(curr_Location.distance_from(dest_Location) <= 0.1)	{ new_status = Docked; }
+	if(curr_Location.distance_from(dest_Location) <= 0.1)	{
+	    new_status = Docked;
+
+	}
 
 	Location next_Location = (new_status == Docked ? dest_Location : curr_Location.next_Location(direction, curr_speed));
 	double use_fuel = curr_Location.distance_from(next_Location) * FUEL_PER_NM;
