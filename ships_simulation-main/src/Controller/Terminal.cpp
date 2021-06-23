@@ -4,8 +4,12 @@
 
 
 void Terminal::run(){
+
+    string command, first_word;
+    string boat_name, boat_type, str_x, str_y;
+    double x,y;
+
     while(true){
-        string command, first_word;
         cout<< "Time "<<Time<<": Enter Command: ";
         getline(cin,command);
         stringstream s(command);
@@ -14,8 +18,6 @@ void Terminal::run(){
         else if(first_word=="status") Model::getInstance().status();
         else if(first_word=="go") Model::getInstance().go();
         else if(first_word=="create"){
-            string boat_name, boat_type, str_x, str_y;
-            double x,y;
             int res_pow,cap_range;
             s >> boat_name >> boat_type >> str_x >> str_y;
             s >> res_pow;

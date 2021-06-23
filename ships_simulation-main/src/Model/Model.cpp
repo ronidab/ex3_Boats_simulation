@@ -26,12 +26,33 @@ int Model::findPortByLocation(const Location &loc)	{
     return -1;
 }
 /*************************************/
+/*************************************/
+void Model::status()	{ //print status of all objects in the simulation
 
-void Model::status(){} //print status of all objects in the simulation
-void Model::go(){}       //loop of "update" for all objects
-void Model::create(const string& boat_name, const string& boat_type, int x, int y, int res_atckPower, int cap_range ){
-    //add boat to data
-    if(boat_type=="")
+    for( auto& boat : all_boats )	{
+        cout << boat << endl;
+    }
+
+    for( auto& port : all_ports )	{
+        cout << port << endl;
+    }
+}
+/*************************************/
+void Model::go()	{ // loop of "update" for all objects
+
+    for( auto& boat : all_boats )	{ boat.get()->update(); }
+    for( auto& port : all_ports )	{ port.get()->update(); }
+
+}
+/*************************************/
+void Model::create(const string& boat_name, const string& boat_type, double x, double y, int res_atckPower, int cap_range )	{//add boat to data
+
+    if( boat_type == "Freighter" )	{ all_boats.push_back(make_shared<Boat>(new freighterBoat() )); }
+
+    else if( boat_type == "Cruiser" )	{ all_boats.push_back(make_shared<Boat>(new Cruiser())); }
+
+    else	{ all_boats.push_back(make_shared<Boat>(new patrolBoat()); }
+
 
 
 }

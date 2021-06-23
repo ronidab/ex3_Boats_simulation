@@ -113,7 +113,7 @@ void patrolBoat::stop() {
 }
 
 /********************************************/
-void patrolBoat::dock() {
+void patrolBoat::dock(weak_ptr<Port>() port) {
     switch (dockedStatus) {
         case fuel:
             ask_fuel();

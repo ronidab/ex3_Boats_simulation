@@ -3,6 +3,47 @@
 freighterBoat::freighterBoat(string& boat_name,int cont_cap, int res):Boat(boat_name,MAX_FRI_FUEL, res, cont_cap),MAX_CONTAINERS_CAPACITY(cont_cap),load_status(0),
                                      warning(0), new_load_status(load_status),to_unload(0) {};
 
+void freighterBoat::course(int deg, double speed){
+
+}
+
+void freighterBoat::position(double x, double y, double speed){
+
+}
+
+void freighterBoat::destination(weak_ptr<Port> port, double speed){
+
+}
+
+void freighterBoat::dock(weak_ptr<Port> port){
+
+}
+
+void freighterBoat::attack(weak_ptr<Port> port){
+
+}
+
+void freighterBoat::refuel(){
+
+}
+
+void freighterBoat::stop(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*************************************/
 void freighterBoat::stop()	{
     dest_port.reset();
@@ -10,7 +51,7 @@ void freighterBoat::stop()	{
 }
 
 /*************************************/
-void freighterBoat::dock()	{
+void freighterBoat::dock(weak_ptr<Port>() port)	{
     load_status ? load() : unload(to_unload);
 
     if(!waiting_for_fuel && (curr_fuel!=MAX_FRI_FUEL)){
@@ -100,33 +141,7 @@ void freighterBoat::ask_fuel()	{
     return;
 
 }
-/*************************************/
 
-void freighterBoat::update()	{
-
-    if(waiting_for_fuel && new_status==Move ){
-        waiting_for_fuel = false;
-        dest_port.lock()->removeFromQueue(weak_ptr<Boat>(this));
-    }
-
-	executeByStatus(status);
-
-	if( warning )	{ cerr << "WARNING: requested containers to unload capacity is greater than existing capacity." << endl; }
-
-	warning = false;
-	if(add_fuel > 0){
-        curr_fuel += add_fuel;
-        add_fuel=0;
-        waiting_for_fuel=false;
-	}
-	status = new_status;
-	curr_speed = new_speed;
-    dest_port = new_dest_port;
-	direction = new_Direction;
-	load_status = new_load_status;
-	dest_Location = new_dest_Location;
-	num_of_containers = new_num_of_containers;
-}
 /*************************************/
 ostream& operator<<(ostream& out, const freighterBoat& ship)	{
 

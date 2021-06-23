@@ -13,13 +13,8 @@ private:
     std::weak_ptr<Port> dest_port;
 
     bool load_status;
-    int to_unload;
     bool warning;
 
-    /*data members update*/
-    std::weak_ptr<Port> new_dest_port;
-
-    bool new_load_status;
 
 public:
     /*c'tors & d'tors*/
@@ -27,21 +22,26 @@ public:
     ~freighterBoat()	{}
 
     /*getters & setters*/
-    void setDirection();
-    void setToLoad(bool b);
-    void setDestLocation(const Location &destLocation);
-    void setPort(std::shared_ptr<Port>& port, int speed, bool b, const Location& dest_loc);
-    void setToUnload(int capacity);
+//    void setDirection();
+//    void setToLoad(bool b);
+//    void setDestLocation(const Location &destLocation);
+//    void setPort(std::shared_ptr<Port>& port, int speed, bool b, const Location& dest_loc);
+//    void setToUnload(int capacity);
 
     /*class functions*/
-    void unload();
-    void ask_fuel();
-    void update();
+    void course(int deg, double speed);
+
+    void position(double x, double y, double speed);
+
+    void destination(weak_ptr<Port> port, double speed);
+
+    void dock(weak_ptr<Port> port);
+
+    void attack(weak_ptr<Port> port);
+
+    void refuel();
+
     void stop();
-    void dock();
-    void dead();
-    void move();
-    void load();
 
     /*print operator*/
     friend ostream& operator<<(ostream& out, const freighterBoat& ship);

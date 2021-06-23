@@ -3,7 +3,6 @@
 #include "C:\Users\ex3_ships_simulation\ships_simulation-main\src\View\View.h"
 
 
-
 using namespace std;
 
 class Terminal {
