@@ -14,8 +14,22 @@ void Terminal::run(){
         else if(first_word=="status") Model::getInstance().status();
         else if(first_word=="go") Model::getInstance().go();
         else if(first_word=="create"){
-            ///****5 args required
-            Model::getInstance().create();
+            string boat_name, boat_type, str_x, str_y;
+            double x,y;
+            int res_pow,cap_range;
+            s >> boat_name >> boat_type >> str_x >> str_y;
+            s >> res_pow;
+            //one more argument:
+            //*in case of freighter boat -> capacity of possible containers
+            //*in case of cruiser boat -> attack range
+            if(s.tellg() != -1) s>>cap_range;
+            else cap_range=0;
+
+            str_x = str_x.substr(1,5);
+            str_y = str_y.substr(0,5);
+            x = stod(str_x);
+            y = stod(str_y);
+            Model::getInstance().create(boat_name,boat_type,x,y,res_pow,cap_range);
         }
         else if(Model::getInstance().isBoatExist(first_word)){
             //case of first word is an exist boat command
@@ -26,11 +40,12 @@ void Terminal::run(){
             if(second_word=="course"){
                 double deg, speed;
                 s >> deg >> speed;
-                b.lock()->setCourse(deg);      ///????
+                b.lock()->setCourse(deg);      ///add order to queue
             }
             else if(second_word=="position"){
                 double x,y, speed;
                 s >> x >> y >> speed;
+                ///add order to queue
                 b.lock()->setDestLocation(Location(x,y));
                 b.lock()->setSpeed(speed);
             }
@@ -43,6 +58,7 @@ void Terminal::run(){
                     cerr << "Destination does not exist. try again. "<<endl;
                     break;
                 }
+                ///add order to queue, check if destination is load/un_load
                 b.lock()->setDestLocation(Model::getInstance().getPort(dest_port_name).get_Location());
             }
             else if(second_word=="load_at"){
@@ -52,8 +68,9 @@ void Terminal::run(){
                     cerr << "Port does not exist. try again. "<<endl;
                     break;
                 }
+                ///add port to vector
                 b.lock()->setDestLocation(Model::getInstance().getPort(dest_port_name).get_Location());
-                ///dynamic cast for change load status;
+
 
             }
             else if(second_word=="unload_at"){
@@ -65,8 +82,9 @@ void Terminal::run(){
                     cerr << "Port does not exist. try again. "<<endl;
                     break;
                 }
+                ///add struct port to vector
                 b.lock()->setDestLocation(Model::getInstance().getPort(dest_port_name).get_Location());
-                ///dynamic cast for change load status & to_load;
+
             }
             else if(second_word=="dock_at"){
                 string dock_port;
@@ -75,6 +93,7 @@ void Terminal::run(){
                     cerr << "Port does not exist. try again. "<<endl;
                     break;
                 }
+                ///add order to queue
                 b.lock()->setDock(Model::getInstance().getPort(dest_port_name));
             }
             else if(second_word=="attack"){
@@ -84,13 +103,13 @@ void Terminal::run(){
                     cerr << "Boat does not exist. try again. "<<endl;
                     break;
                 }
-                ///dynamic_cast<cruiser_boat> b.attack(Model::getInstance().getBoat(attack_port));
+                ///add order to queue
             }
             else if(second_word=="refuel"){
-                ////*****
+                ///add order to queue
             }
             else if(second_word=="stop"){
-                ////****
+                ///add order to queue
             }
         }
         else if(first_word=="default")view.Default();

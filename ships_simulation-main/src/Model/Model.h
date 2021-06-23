@@ -36,7 +36,7 @@ public:
 
     void status();
     void go();
-    void create(); ///****5 args required
+    void create(const string& boat_name, const string& boat_type, double x, double y, int res_atckPower, int cap_range );
 
 };
 /***********************************/
