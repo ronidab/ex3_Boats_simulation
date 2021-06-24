@@ -108,8 +108,8 @@ public:
     Boat &operator=(Boat &&) = delete;
 
     virtual void
-    addOrder(const string &ord_str, int deg, double speed, double x, double y, weak_ptr<Port> port, weak_ptr<Boat> boat,
-             int cont_capacity) {
+    addOrder(const string &ord_str, int deg=0, double speed=0, double x=0, double y=0, weak_ptr<Port> port=weak_ptr<Port>(), weak_ptr<Boat> boat=weak_ptr<Boat>(),
+             int cont_capacity=0) {
         order curr_ord;
         if (ord_str == "course") curr_ord = Course;
         else if (ord_str == "position") curr_ord = Position;
@@ -184,6 +184,8 @@ public:
     virtual void addFuel(int cap) { curr_fuel += cap; }
 
     virtual void setWaiting(bool b) { waiting_in_fuel_queue = b; }
+
+    virtual void setAskForFuel(bool b) {ask_fuel = b;}
 
     //*inside status functions*
     virtual void in_dock_status() = 0;
