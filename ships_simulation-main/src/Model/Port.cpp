@@ -84,8 +84,10 @@ void Port::fuel(patrolBoat& boat){
     // check if fuel action is valid
     if( required_fuel <= fuel_capacity )	{
 
-        boat.setToAddFuel(required_fuel);
-        new_fuel_capacity = fuel_capacity - required_fuel;
+        boat.addFuel(required_fuel);
+        boat.setWaiting(false);
+        boat.setAvailable(true);
+        fuel_capacity -= required_fuel;
     }
 }
 
