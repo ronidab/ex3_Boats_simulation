@@ -16,7 +16,7 @@ Port::Port(const Port& other):gameObj(),loc(other.loc), containers(other.contain
 /********************************************/
 Port::Port(double fuel_capacity, double fuel_product, string& name, const Location& loc):
         gameObj(),loc(Location()),containers(0),port_name(name),fuel_capacity(fuel_capacity),
-        fuel_product_per_hr(fuel_product),ready_to_fuel(queue<weak_ptr<Boat> >{}),new_containers(containers),
+        fuel_product_per_hr(fuel_product),ready_to_fuel(deque<weak_ptr<Boat> >{}),new_containers(containers),
         new_fuel_capacity(fuel_capacity){}
 /********************************************/
 Port::~Port()	{}
@@ -33,8 +33,6 @@ Port& Port::operator=(const Port& other)	{
     fuel_capacity = other.fuel_capacity;
     fuel_product_per_hr = other.fuel_product_per_hr;
     ready_to_fuel = other.ready_to_fuel;
-    new_containers = other.new_containers;
-    new_fuel_capacity = other.new_fuel_capacity;
 
     return *this;
 }
@@ -47,8 +45,6 @@ Port& Port::operator=(Port&& other)	{
     fuel_capacity = other.fuel_capacity;
     fuel_product_per_hr = other.fuel_product_per_hr;
     ready_to_fuel = other.ready_to_fuel;
-    new_containers = other.new_containers;
-    new_fuel_capacity = other.new_fuel_capacity;
 
     return *this;
 }
@@ -59,9 +55,9 @@ string Port::getPortName() const	{ return port_name; }
 /********************************************/
 double Port::get_fuel_cap() const	{ return fuel_capacity; }
 /********************************************/
-void Port::unload(int cont)	{  containers -= cont; }
+void Port::unload_port(int cont)	{  containers -= cont; }
 /********************************************/
-void Port::load(int cont)	{ containers += cont; }
+void Port::load_port(int cont)	{ containers += cont; }
 /********************************************/
 void Port::fuel()	{
 
@@ -70,7 +66,7 @@ void Port::fuel()	{
     // check if fuel action is valid
     if( required_fuel <= fuel_capacity )	{
 
-        ready_to_fuel.front().lock()->setToAddFuel(required_fuel);
+        ready_to_fuel.front().lock()->setAddFuel(required_fuel);
         new_fuel_capacity = fuel_capacity - required_fuel;
         ready_to_fuel.pop();
 
@@ -106,8 +102,6 @@ void Port::removeFromQueue(weak_ptr<Boat> boat){
 void Port::update()	{
 
     fuel();
-    containers = new_containers;
-    fuel_capacity = new_fuel_capacity;
     /*
      *
      * to update :

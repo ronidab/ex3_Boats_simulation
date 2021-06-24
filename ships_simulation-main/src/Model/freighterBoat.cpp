@@ -140,24 +140,28 @@ ostream &operator<<(ostream &out, const freighterBoat &ship) {
     switch (ship.status) {
         case (Move_to_Dest):
             stat_string +=
-                    "Moving to " + ship.dest_port.lock()->getPortName() + " on course " + ship.direction.get_degree() + " deg"+ ", speed " + ship.curr_speed + " nm/hr " + " Containers: " + ship.curr_num_of_containers;
-            switch(type){
-                case(load):
+                    "Moving to " + ship.dest_port.lock()->getPortName() + " on course " + ship.direction.get_degree() +
+                    " deg" + ", speed " + ship.curr_speed + " nm/hr " + " Containers: " + ship.curr_num_of_containers;
+            switch (type) {
+                case (load):
                     stat_string += "moving to loading destination. ";
                     break;
-                case(unload):
-                    stat_string +="moving to unloading destination. ";
+                case (unload):
+                    stat_string += "moving to unloading destination. ";
                     break;
-                case(None):
+                case (None):
                     stat_string += "no cargo destinations. ";
                     break;
             }
             break;
         case (Move_to_Position):
-            stat_string += "Moving to position " + ship.dest_Location + ", speed " + ship.curr_speed + " nm/hr " + " Containers: " + ship.curr_num_of_containers;
+            stat_string += "Moving to position " + ship.dest_Location + ", speed " + ship.curr_speed + " nm/hr " +
+                           " Containers: " + ship.curr_num_of_containers;
             break;
         case (Move_to_Course):
-            stat_string += "Moving on course " + ship.direction.get_degree() + ", speed " + ship.curr_speed + " nm/hr " + " Containers: " + ship.curr_num_of_containers;
+            stat_string +=
+                    "Moving on course " + ship.direction.get_degree() + ", speed " + ship.curr_speed + " nm/hr " +
+                    " Containers: " + ship.curr_num_of_containers;
             break;
         case (Docked):
             stat_string += "Docked at " + ship.destPortName;

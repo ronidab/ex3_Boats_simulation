@@ -4,7 +4,7 @@
 
 class freighterBoat : public Boat  {
 private:
-	/*constants*/
+    /*constants*/
     const int MAX_CONTAINERS_CAPACITY;
     static const int MAX_FRI_FUEL = 500000;
     const int MAX_SPEED = 40;

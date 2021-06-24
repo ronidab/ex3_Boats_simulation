@@ -1,6 +1,13 @@
 #ifndef Port_H_
 #define Port_H_
-#include "GameObj.h"
+
+#include <deque>
+#include <memory>
+#include <string>
+
+#include "Boat.h"
+#include "Location.h"
+
 /**************************/
 class Boat;
 class patrolBoat;
@@ -16,9 +23,6 @@ private:
     double fuel_product_per_hr;
     deque < weak_ptr<Boat> > ready_to_fuel;
 
-    /*data members update*/
-    int new_containers;
-    double new_fuel_capacity;
 
 public:
     /*c'tors & d'tors*/
@@ -41,10 +45,10 @@ public:
     bool readyToFuelEmpty();
 
     /*class functions*/
-    void load(int cap);
+    void load_port(int cap);
     void fuel();
     void fuel(patrolBoat& boat);
-    void unload(int cap);
+    void unload_port(int cap);
     virtual void update();
 };
 /**************************/

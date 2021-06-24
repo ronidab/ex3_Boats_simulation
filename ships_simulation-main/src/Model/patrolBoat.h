@@ -41,7 +41,7 @@ public:
 
     void stop();
 
-    void dock(weak_ptr<Port>() port);
+    void dock();
 
     void dead();
 
