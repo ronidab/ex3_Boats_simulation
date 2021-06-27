@@ -13,7 +13,7 @@ enum order {
 };
 /*****************************************/
 enum Status {
-    Stopped, Docked, Dead, Move_to_Course, Move_to_Position, Move_to_Dest
+    Stopped, Docked, Dead, Move_to_Course, Move_to_Position, Move_to_Dest, Move_to_first
 };
 
 /*****************************************/
@@ -153,6 +153,8 @@ public:
     virtual void in_dock_status() = 0;
 
     virtual void in_move_status() = 0;
+
+    virtual void patrol_move_to_first() =0;
 
 
     virtual void update();

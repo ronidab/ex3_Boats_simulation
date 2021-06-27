@@ -3,14 +3,14 @@
 
 
 void Boat::setAvailable(bool b) { available = b; }
-
+/********************************/
 void Boat::setWaiting(bool b) { waiting_in_fuel_queue = b; }
-
+/********************************/
 void Boat::setAskForFuel(bool b) { ask_fuel = b; }
-
+/********************************/
 void Boat::addFuel(int cap) { curr_fuel += cap; }
 
-
+/********************************/
 void Boat::addOrder(const string &ord_str, int deg, double speed, double x, double y, weak_ptr<Port> port, weak_ptr<Boat> boat,
          int cont_capacity) {
     order curr_ord;
@@ -24,7 +24,7 @@ void Boat::addOrder(const string &ord_str, int deg, double speed, double x, doub
     Order new_order = Order(curr_ord, deg, speed, port, boat, x, y, cont_capacity);
     orders_queue.push(new_order);   //adding order to queue
 }
-
+/********************************/
 bool Boat::dest_is_load(weak_ptr<Port> dest) {
     for (auto &p: ports_to_load) {
         if (p.lock().get() == dest.lock().get()) { ///???operator ==
@@ -33,7 +33,7 @@ bool Boat::dest_is_load(weak_ptr<Port> dest) {
     }
     return false;
 }
-
+/********************************/
 bool Boat::dest_is_unload(weak_ptr<Port> dest) {
     for (auto &p: ports_to_unload) {
         if (p.port.lock().get() == dest.lock().get()) { ///???operator ==
@@ -42,13 +42,13 @@ bool Boat::dest_is_unload(weak_ptr<Port> dest) {
     }
     return false;
 }
-
+/********************************/
 void Boat::add_load_dest(weak_ptr<Port> load_port) {
     if (dest_is_load(load_port))return;  //there is nothing to do
     else if (dest_is_unload(load_port)) cerr << "Destination is already for unload." << endl;
     else ports_to_load.push_back(load_port);
 }
-
+/********************************/
 void Boat::add_unload_dest(weak_ptr<Port> unload_port, int capacity) {
     if (dest_is_unload(unload_port))return;  //there is nothing to do
     else if (dest_is_load(unload_port)) cerr << "Destination is already for load." << endl;
@@ -57,17 +57,17 @@ void Boat::add_unload_dest(weak_ptr<Port> unload_port, int capacity) {
         ports_to_unload.push_back(new_port);
     }
 }
-
+/********************************/
 Boat& Boat::operator++() {
     resistance++;
     return *this;
 }
-
+/********************************/
 Boat& Boat::operator--() {
     resistance--;
     return *this;
 }
-
+/********************************/
 void Boat::update() {
     if (available) {
         if (!orders_queue.empty()) {
@@ -111,6 +111,9 @@ void Boat::update() {
                 break;
             case (Move_to_Position):
                 in_move_status();
+                break;
+            case(Move_to_first):
+                patrol_move_to_first();
                 break;
             case (Stopped):
                 available = true;

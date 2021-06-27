@@ -73,7 +73,7 @@ void freighterBoat::stop() {
     status = Stopped;
     curr_speed = 0;
     dest_port.reset();
-    available = true; //available for other orders
+    setAvailable(true); //available for other orders
 }
 
 /*************************************/
@@ -119,12 +119,20 @@ void freighterBoat::in_dock_status() {
 
 /*************************************/
 void freighterBoat::in_move_status() {
+    if (curr_Location.distance_from(dest_Location) <= 0.1){
+        //case of boat already can dock at destination
+        status=Docked;
+        curr_speed=0;
+        curr_Location=dest_Location;
+        return;
+    }
     Location next_Location = curr_Location.next_Location(direction, curr_speed));
     double use_fuel = curr_Location.distance_from(next_Location) * FUEL_PER_NM;
 
     if (curr_fuel - use_fuel <= 0) {
         if (curr_Location != dest_Location) {
             status = Dead;
+            curr_speed=0;
         }
     } else {
         curr_fuel -= use_fuel;
