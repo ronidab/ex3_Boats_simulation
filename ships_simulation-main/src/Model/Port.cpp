@@ -83,7 +83,7 @@ void Port::fuel(patrolBoat& boat){
         boat.addFuel(required_fuel);
 
         //only for freighterBoat:
-        if(typeid(boat) == typeid(freighterBoat)){
+        if(typeid(boat()) == typeid(freighterBoat())){
             boat.setWaiting(false);
             boat.setAvailable(true);
         }

@@ -53,8 +53,6 @@ public:
     /*operators*/
     friend ostream &operator<<(ostream &out, const patrolBoat &ship);
 
-    bool operator<(const cruiserBoat &other) const;
-
 };
 /********************************/
 #endif

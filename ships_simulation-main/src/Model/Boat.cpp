@@ -1,7 +1,10 @@
 #include "Boat.h"
 
 
-
+Location Boat::getCurrLocation(){return curr_Location;}
+/********************************/
+void Boat::setNumOfContainers(int n){ curr_num_of_containers=n;}
+/********************************/
 void Boat::setAvailable(bool b) { available = b; }
 /********************************/
 void Boat::setWaiting(bool b) { waiting_in_fuel_queue = b; }
@@ -9,7 +12,6 @@ void Boat::setWaiting(bool b) { waiting_in_fuel_queue = b; }
 void Boat::setAskForFuel(bool b) { ask_fuel = b; }
 /********************************/
 void Boat::addFuel(int cap) { curr_fuel += cap; }
-
 /********************************/
 void Boat::addOrder(const string &ord_str, int deg, double speed, double x, double y, weak_ptr<Port> port, weak_ptr<Boat> boat,
          int cont_capacity) {
@@ -59,13 +61,17 @@ void Boat::add_unload_dest(weak_ptr<Port> unload_port, int capacity) {
 }
 /********************************/
 Boat& Boat::operator++() {
-    resistance++;
+    res_pow++;
     return *this;
 }
 /********************************/
 Boat& Boat::operator--() {
-    resistance--;
+    res_pow--;
     return *this;
+}
+/********************************/
+bool Boat::operator>(const Boat &other) const{
+    return res_pow > other.res_pow;
 }
 /********************************/
 void Boat::update() {
@@ -89,7 +95,7 @@ void Boat::update() {
                     dock(curr_order.port);
                     break;
                 case (Attack):
-                    attack(curr_order.port);
+                    attack(curr_order.boat);
                     break;
                 case (Stop):
                     stop();

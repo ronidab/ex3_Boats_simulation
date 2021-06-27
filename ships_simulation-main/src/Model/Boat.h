@@ -68,7 +68,7 @@ protected:
 
     const double MAX_BOAT_FUEL;
     const string name;
-    int resistance;
+    int res_pow;         //resistance or attack power
     double curr_fuel;
     Status status;
     double curr_speed;
@@ -89,8 +89,8 @@ protected:
 
 
 public:
-    Boat(string &boat_name, double max_fuel = 0, int res = 0, int num = 0) : name(boat_name), MAX_BOAT_FUEL(max_fuel),
-                                                                             resistance(res), curr_fuel(max_fuel),
+    Boat(string &boat_name, double max_fuel = 0, int resPow = 0, int num = 0) : name(boat_name), MAX_BOAT_FUEL(max_fuel),
+                                                                             res_pow(resPow), curr_fuel(max_fuel),
                                                                              status(Stopped), curr_speed(0),
                                                                              direction(Direction()),
                                                                              curr_Location(Location()),
@@ -110,15 +110,19 @@ public:
 
     Boat &operator=(Boat &&) = delete;
 
-    virtual void setAvailable(bool b);
+    Location getCurrLocation();
 
-    virtual void addFuel(int cap);
+    void setNumOfContainers(int n);
 
-    virtual void setWaiting(bool b) ;
+    void setAvailable(bool b);
 
-    virtual void setAskForFuel(bool b) ;
+    void addFuel(int cap);
 
-    virtual void
+    void setWaiting(bool b) ;
+
+    void setAskForFuel(bool b) ;
+
+    void
     addOrder(const string &ord_str, int deg = 0, double speed = 0, double x = 0, double y = 0,
              weak_ptr<Port> port = weak_ptr<Port>(), weak_ptr<Boat> boat = weak_ptr<Boat>(),
              int cont_capacity = 0);
@@ -143,7 +147,7 @@ public:
 
     virtual void dock(weak_ptr<Port> port) = 0;
 
-    virtual void attack(weak_ptr<Port> port) = 0;
+    virtual void attack(weak_ptr<Boat> boat) = 0;
 
     virtual void refuel() = 0;
 
@@ -156,6 +160,7 @@ public:
 
     virtual void patrol_move_to_first() =0;
 
+    virtual bool operator>(const Boat &other) const;
 
     virtual void update();
 };

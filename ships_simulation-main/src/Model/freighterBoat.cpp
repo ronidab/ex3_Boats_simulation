@@ -129,7 +129,7 @@ void freighterBoat::in_move_status() {
     Location next_Location = curr_Location.next_Location(direction, curr_speed));
     double use_fuel = curr_Location.distance_from(next_Location) * FUEL_PER_NM;
 
-    if (curr_fuel - use_fuel <= 0) {
+    if (curr_fuel - use_fuel < 0) {
         if (curr_Location != dest_Location) {
             status = Dead;
             curr_speed=0;
@@ -190,8 +190,8 @@ ostream &operator<<(ostream &out, const freighterBoat &ship) {
 
     stat_string += ", ";
 
-    out << "Freighter " << ship.name << " at " << ship.curr_Location << ", fuel: " << ship.curr_fuel << ", resistance: "
-        << ship.resistance << ", " << stat_string;
+    out << "Freighter " << ship.name << " at " << ship.curr_Location << ", fuel: " << ship.curr_fuel << ", res_pow: "
+        << ship.res_pow << ", " << stat_string;
 
     return out;
 }

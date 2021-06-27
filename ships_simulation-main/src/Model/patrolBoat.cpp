@@ -47,9 +47,10 @@ void patrolBoat::start_patrol(weak_ptr<Port> port, double speed) {
 /********************************************/
 void patrolBoat::stop() {
     //clear all destinations
-    while (new_patrols.size() > 0) {
-        new_patrols.pop();
+    while (orders_queue.size() > 0) {
+        orders_queue.pop();
     }
+    ///is that true?????
     cursor = 0;
     curr_speed = 0;
     setAvailable(true);
@@ -185,7 +186,7 @@ ostream &operator<<(ostream &out, const patrolBoat &ship) {
 
     }
     out << "Patrol_boat " << ship.name << " at " << ship.curr_Location << ", fuel: " << ship.curr_fuel
-        << " kl, resistance: " << ship.resistance << ", " << status_str << endl;
+        << " kl, res_pow: " << ship.res_pow << ", " << status_str << endl;
 
 
     return out;
