@@ -38,6 +38,8 @@ patrolBoat::patrolBoat(string &boat_name, int res) : Boat(boat_name, MAX_PAT_FUE
 	}
 }
 
+/********************************/
+int patrolBoat::getMAXSpeed(){return MAX_SPEED;}
 /********************************************/
 void patrolBoat::destination(weak_ptr<Port> port, double speed) {
     start_patrol(port, speed);

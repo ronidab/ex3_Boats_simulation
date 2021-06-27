@@ -12,7 +12,12 @@ freighterBoat::freighterBoat(string &boat_name, int containers_capacity, int res
 
 /*************************************/
 void freighterBoat::setNumOfContainers(int n) { curr_num_of_containers = n; }
-
+/********************************/
+void freighterBoat::setWaiting(bool b) { waiting_in_fuel_queue = b; }
+/********************************/
+void freighterBoat::setAskForFuel(bool b) { ask_fuel = b; }
+/********************************/
+int freighterBoat::getMAXSpeed(){return MAX_SPEED;}
 /********************************/
 bool freighterBoat::dest_is_load(weak_ptr<Port> dest) {
     for (auto &p: ports_to_load) {

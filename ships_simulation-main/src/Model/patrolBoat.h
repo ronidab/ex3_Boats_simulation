@@ -36,6 +36,7 @@ public:
 //    void dock();
 /**********************************/
 
+    int getMAXSpeed();
     void destination(weak_ptr<Port> port, double speed);
 
     void start_patrol(weak_ptr<Port> port, double speed);

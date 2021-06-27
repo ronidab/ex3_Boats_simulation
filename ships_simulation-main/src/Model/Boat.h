@@ -97,17 +97,17 @@ public:
 
     Boat &operator=(Boat &&) = delete;
 
+    virtual int getMAXSpeed();
+
     Location getCurrLocation();
 
     string getName() const;
 
     void setAvailable(bool b);
 
+    virtual void setAskForFuel(bool b);
+
     void addFuel(int cap);
-
-    void setWaiting(bool b);
-
-    void setAskForFuel(bool b);
 
     void addOrder(const string &ord_str, int deg = 0, double speed = 0, double x = 0, double y = 0,
              weak_ptr<Port> port = weak_ptr<Port>(), weak_ptr<Boat> boat = weak_ptr<Boat>(),
@@ -139,6 +139,7 @@ public:
     virtual void patrol_move_to_first() =0;
 
     virtual void add_load_dest(weak_ptr<Port> load_port);
+
     virtual void add_unload_dest(weak_ptr<Port> unload_port, int capacity);
 
     virtual bool operator>(const Boat &other) const;

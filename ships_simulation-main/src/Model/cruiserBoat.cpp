@@ -1,5 +1,6 @@
 #include "cruiserBoat.h"
 
+int cruiserBoat::getMAXSpeed(){return MAX_SPEED;}
 /********************************/
 void cruiserBoat::course(double deg, double speed) {
     status = Move_to_Course;
@@ -16,6 +17,14 @@ void cruiserBoat::position(double x, double y, double speed) {
 
 /********************************/
 void cruiserBoat::attack(weak_ptr<Boat> attack_boat) {
+    if(typeid(*attack_boat) == typeid(cruiserBoat())){
+        /*
+         *
+         * TODO:EXCEPTION: cruiser boat can attack freighter or patrol boat only
+         *
+         *
+         */
+    }
     if (attack_range >= curr_Location.distance_from(attack_boat.lock()->getCurrLocation())) {
         //any way of attacking -> attack boat stop
         attack_boat.lock()->stop();

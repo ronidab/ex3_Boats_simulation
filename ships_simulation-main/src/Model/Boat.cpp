@@ -6,10 +6,6 @@ string Boat::getName() const	{ return name; }
 /********************************/
 void Boat::setAvailable(bool b) { available = b; }
 /********************************/
-void Boat::setWaiting(bool b) { waiting_in_fuel_queue = b; }
-/********************************/
-void Boat::setAskForFuel(bool b) { ask_fuel = b; }
-/********************************/
 void Boat::addFuel(int cap) { curr_fuel += cap; }
 /********************************/
 void Boat::addOrder(const string &ord_str, int deg, double speed, double x, double y, weak_ptr<Port> port, weak_ptr<Boat> boat,
