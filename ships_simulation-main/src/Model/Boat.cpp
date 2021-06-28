@@ -1,4 +1,24 @@
 #include "Boat.h"
+#include "patrolBoat.h"
+#include "cruiserBoat.h"
+#include "freighterBoat.h"
+#include "Model.h"
+
+shared_ptr<Boat> Boat::createBoat(const string& boat_name, const string& boat_type, int x, int y, int res_pow, int cap_range ){
+
+    if (boat_type == "Freighter") {
+        shared_ptr<Boat> new_boat (new freighterBoat(boat_name, cap_range, res_pow));
+        return new_boat;
+    }
+    else if (boat_type == "Cruiser") {
+        shared_ptr<Boat> new_boat (new cruiserBoat(boat_name,res_pow,cap_range));
+        return new_boat;
+    }
+    else{
+        shared_ptr<Boat> new_boat(new patrolBoat(boat_name,res_pow));
+        return new_boat;
+    }
+}
 /********************************/
 Location Boat::getCurrLocation(){return curr_Location;}
 /********************************/

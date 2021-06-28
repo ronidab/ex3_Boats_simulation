@@ -58,6 +58,8 @@ class freighterBoat;
 class cruiserBoat;
 
 class patrolBoat;
+
+class Model;
 /*****************************************/
 class Boat : public gameObj {
 protected:
@@ -100,6 +102,8 @@ public:
     Boat &operator=(const Boat &) = delete;
 
     Boat &operator=(Boat &&) = delete;
+
+    static shared_ptr<Boat> createBoat(const string& boat_name, const string& boat_type, int x, int y, int res_atckPower, int cap_range = 0 );
 
     Location getCurrLocation();
 
