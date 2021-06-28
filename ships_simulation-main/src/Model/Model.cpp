@@ -1,6 +1,14 @@
 #include "Model.h"
-#include "Port.h"
 
+#include <iostream>
+#include <memory>
+#include <string>
+
+#include "Location.h"
+#include "patrolBoat.h"
+#include "Port.h"
+#include "freighterBoat.h"
+class cruiserBoat;
 /*************************************/
 Model::~Model() {}
 
@@ -60,10 +68,9 @@ void Model::go() { // loop of "update" for all objects
 void Model::create(const string &boat_name, const string &boat_type, int x, int y, int res_pow, int cap_range) {
     //add boat to data
     if (boat_type == "Freighter") {
-        all_boats.push_back(make_shared<Boat>(new freighterBoat(boat_name, cap_range, res_pow)));
+        all_boats.push_back(shared_ptr<Boat>(new freighterBoat(boat_name, cap_range, res_pow)));
     }
-    else if (boat_type == "Cruiser") { all_boats.push_back(make_shared<Boat>(new cruiserBoat(boat_name,res_pow,cap_range))); }
-    else { all_boats.push_back(make_shared<Boat>(new patrolBoat(boat_name,res_pow)); }
-    ///????
+    else if (boat_type == "Cruiser") { all_boats.push_back(shared_ptr<Boat>(new cruiserBoat(boat_name,res_pow,cap_range))); }
+    else { all_boats.push_back(shared_ptr<Boat>(new patrolBoat(boat_name,res_pow))); }
 }
 

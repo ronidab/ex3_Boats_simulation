@@ -1,8 +1,7 @@
 #include <iostream>
-#include "model_main.cpp"
-#include "view_main.cpp"
-#include "controller_main.cpp"
-
+#include "../src/View/view_main.cpp"
+#include "../src/Model/model_main.cpp"
+#include "../src/Controller/controller_main.cpp"
 using namespace std;
 /*************************/
 //TODO: to be implemented/fixed:
@@ -14,8 +13,8 @@ using namespace std;
 //3.	run tests for all class functions.
 
 // -----MODEL-----
-//2.	implement create at Model.cpp --> ???
-//3.	move through _todo's to see if any assignements left behind
+//1.	move through _todo's to see if any assignements left behind
+//2.	problems with operator == (where is it calling errors from ???)
 
 // -----VIEW-----
 //1.	fix column and row display to match map size.
@@ -23,7 +22,7 @@ using namespace std;
 
 // -----CONTROLLER-----
 //1.	run tests for terminal
-
+//2.	FileParser raises problem with calling Port's different c'tors.
 /*************************/
 int main(int argc, char **argv) {
 
@@ -34,6 +33,7 @@ int main(int argc, char **argv) {
 
 	Controller simulation_control;
 	simulation_control.load_data(argv[1]);
+	simulation_control.run();
 
     return 0;
 }

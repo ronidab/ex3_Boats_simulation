@@ -31,15 +31,13 @@ public:
 patrolBoat::~patrolBoat() {}
 
 /********************************************/
-patrolBoat::patrolBoat(string &boat_name, int res) : Boat(boat_name, MAX_PAT_FUEL, res), cursor(0), patrol_speed(0),
+patrolBoat::patrolBoat(string boat_name, int res) : Boat(boat_name, MAX_PAT_FUEL, res), cursor(0), patrol_speed(0),
                                                      dockedStatus(fuel) {
 	for( auto& port : Model::getInstance()->getAllPorts() )	{
 		curr_patrol.push_back(weak_ptr<Port>(port));
 	}
 }
 
-/********************************/
-int patrolBoat::getMAXSpeed(){return MAX_SPEED;}
 /********************************************/
 void patrolBoat::destination(weak_ptr<Port> port, double speed) {
     start_patrol(port, speed);
@@ -70,16 +68,17 @@ void patrolBoat::stop() {
 }
 
 /********************************************/
-
 void patrolBoat::in_dock_status() {
     switch (dockedStatus) {
         case fuel:
             refuel();
+            dockedStatus = _dock;
             break;
-        case Docked:
+        case _dock:
+        	dockedStatus = set_dest;
             break;
         case set_dest:
-            if (cursor == curr_patrol.size() - 1) {
+            if ((unsigned int)cursor == curr_patrol.size() - 1) {
                 //curr location is the last destination in curr patrol
                 //return to first destination
                 cursor = 0;
@@ -95,12 +94,11 @@ void patrolBoat::in_dock_status() {
                 status = Move_to_Dest;
                 curr_speed = patrol_speed;
             }
+            dockedStatus = fuel;
+            break;
     }
-    dockedStatus = (static_cast<int>(dockedStatus) + 1) % 3;
 }
-
 /********************************************/
-
 void patrolBoat::patrol_move_to_first() {
     if (curr_Location.distance_from(dest_Location) <= 0.1) {
         curr_Location = dest_Location;
@@ -122,6 +120,8 @@ void patrolBoat::patrol_move_to_first() {
     }
 }
 
+/********************************************/
+int patrolBoat::getMAXSpeed()	{return MAX_SPEED;}
 /********************************************/
 void patrolBoat::refuel() {
     //can fuel only if ready to fuel queue is empty
@@ -174,7 +174,7 @@ ostream &operator<<(ostream &out, const patrolBoat &ship) {
                 case (fuel):
                     status_str += "1: Try to fuel. ";
                     break;
-                case (dock):
+                case (_dock):
                     status_str += "2: Docking. ";
                     break;
                 case (set_dest):
@@ -203,4 +203,16 @@ ostream &operator<<(ostream &out, const patrolBoat &ship) {
     return out;
 }
 
+/******************** FOR COMPILER PURPOSES ONLY ************************/
+void patrolBoat::attack(weak_ptr<Boat>)	{}
 /********************************************/
+void patrolBoat::course(double,double)	{}
+/********************************************/
+void patrolBoat::dock(weak_ptr<Port>)	{}
+/********************************************/
+void patrolBoat::position(double,double,double)	{}
+/********************************************/
+void patrolBoat::setAskForFuel(bool)	{}
+/********************************/
+void patrolBoat::setWaiting(bool)	{}
+/********************************/

@@ -4,6 +4,10 @@ Location Boat::getCurrLocation(){return curr_Location;}
 /********************************/
 string Boat::getName() const	{ return name; }
 /********************************/
+double Boat::getFuel() const	{ return curr_fuel; }
+/********************************/
+double Boat::getMaxFuel() const	{ return MAX_BOAT_FUEL; }
+/********************************/
 void Boat::setAvailable(bool b) { available = b; }
 /********************************/
 void Boat::addFuel(int cap) { curr_fuel += cap; }

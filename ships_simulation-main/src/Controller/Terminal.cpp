@@ -2,11 +2,12 @@
 #include <iostream>
 #include <memory>
 #include <sstream>
-#include <string>
+#include <typeinfo>
 #include "../Model/Boat.h"
 #include "../Model/Model.h"
 #include "../Model/Port.h"
-/*********************************************/
+class cruiserBoat;
+/***************/
 void Terminal::run()	{
 
 	string command;
@@ -43,19 +44,11 @@ void Terminal::run()	{
 				s >> boat_name >> boat_type >> str_x >> str_y;
 				s >> res_pow;
 
-				if(boat_name.size() > 12 ){
-				    /*
-				     *
-				     * TODO:EXCEPTION: name of a boat can include maximum 12 chars
-				     *
-				     */
+				if(boat_name.size() > 12 )	{
+				    throw InvalidInputException("boat name must be at most 12 characters.");
 				}
 				if(boat_type != "Cruiser" && boat_type!="Freighter" && boat_type != "Patrol_boat"){
-				    /*
-				     *
-				     * TODO:EXCEPTION: illegal boat type .
-				     *
-				     */
+					throw InvalidInputException("given boat type is invalid.");
 				}
 
 				//one more argument:
@@ -83,23 +76,15 @@ void Terminal::run()	{
 				if( second_word == "course" )	{
 					s >> deg >> speed;
 					if(b.lock()->getMAXSpeed() < speed){
-					    /*
-					     *
-					     * TODO:EXCEPTION: Speed cannot get over -maximum speed -
-					     *
-					     */
+					    throw InvalidInputException("given speed exceeded boat's max speed.");
 					}
 					b.lock()->addOrder(second_word,deg,speed);      //add order to queue
 					continue;
 				}
 				else if( second_word == "position" )	{
 					s >> x >> y >> speed;
-                    if(b.lock()->getMAXSpeed() < speed){
-                        /*
-                         *
-                         * TODO:EXCEPTION: Speed cannot get over -maximum speed -
-                         *
-                         */
+                    if(b.lock()->getMAXSpeed() < speed)	{
+                    	throw InvalidInputException("given speed exceeded boat's max speed.");
                     }
 					//add order to queue
 					b.lock()->addOrder(second_word,speed,x,y);
@@ -114,12 +99,8 @@ void Terminal::run()	{
 					if( s.fail() )	{
 						throw( InvalidInputException("boat's speed is missing.") );
 					}
-                    if(b.lock()->getMAXSpeed() < speed){
-                        /*
-                         *
-                         * TODO:EXCEPTION: Speed cannot get over -maximum speed -
-                         *
-                         */
+                    if(b.lock()->getMAXSpeed() < speed)	{
+                    	throw( InvalidInputException("given speed exceeded boat's max speed.") );
                     }
 					if(!Model::getInstance()->isPortExist(dest_port_name))	{
 						throw( InvalidInputException("given destination port does not exist.") );
@@ -172,13 +153,8 @@ void Terminal::run()	{
 					continue;
 				}
 				else if(second_word == "attack")	{
-				    if(typeid(*b.lock()) != typeid(cruiserBoat())){
-				        ///is this the right syntax ???
-				        /*
-				         *
-				         * TODO:EXCEPTION: only cruiser type can attack
-				         *
-				         */
+				    if(typeid(*b.lock().get()) != typeid(cruiserBoat())){
+				        throw InvalidInputException("only cruiser boat is allowed to attack.");
 				    }
 					string attack_port;
 					s >> attack_port;
@@ -241,4 +217,4 @@ void Terminal::run()	{
 		catch( exception& e )	{ cerr << e.what() << endl; }
 	}
 }
-/*********************************************/
+/***************/

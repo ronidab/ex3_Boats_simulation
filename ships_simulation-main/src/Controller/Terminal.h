@@ -1,10 +1,6 @@
 #include <exception>
 #include <string>
-
 #include "../View/View.h"
-
-/*****************************/
-class Controller;
 /*****************************/
 class Terminal	 {
     static int Time;
@@ -17,7 +13,6 @@ public:
         	InvalidInputException(string msg):msg(msg)	{}
         	virtual const char *what() const noexcept	{return string("ERROR: invalid input : " + msg).c_str();}
     };
-
 
     /*c'tors & d'tors*/
     Terminal() {Time = 0;}

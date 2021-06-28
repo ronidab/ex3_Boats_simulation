@@ -24,17 +24,10 @@ private:
 
 public:
     /*c'tors & d'tors*/
-    freighterBoat(string& boat_name,int containers_capacity, int res);
+    freighterBoat(string boat_name,int containers_capacity, int res);
     ~freighterBoat()	{}
 
-    int getMAXSpeed();
-
     void setNumOfContainers(int n);
-
-    void setWaiting(bool b);
-
-    void setAskForFuel(bool b);
-
     /*class functions*/
     void load_boat();
     void unload_boat();
@@ -53,8 +46,18 @@ public:
     void stop();
 
     void in_dock_status();
+
     void in_move_status();
 
+    void patrol_move_to_first();
+
+    void attack(weak_ptr<Boat>);
+
+    void setWaiting(bool b);
+
+    void setAskForFuel(bool b);
+
+    int getMAXSpeed();
 
     bool dest_is_load(weak_ptr<Port> dest);
 

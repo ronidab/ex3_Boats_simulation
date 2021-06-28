@@ -9,7 +9,7 @@ class Model;
 
 /********************************/
 enum at_port_status {
-    fuel, dock, set_dest
+    fuel, _dock, set_dest
 };
 
 /********************************/
@@ -27,16 +27,8 @@ public:
     /*c'tors & d'tors*/
     ~patrolBoat();
 
-    patrolBoat(string &boat_name, int res);
+    patrolBoat(string boat_name, int res);
 
-//    not implemented functions:
-/**********************************/
-//    void course(int deg, double speed);
-//    void position(double x, double y, double speed);
-//    void dock();
-/**********************************/
-
-    int getMAXSpeed();
     void destination(weak_ptr<Port> port, double speed);
 
     void start_patrol(weak_ptr<Port> port, double speed);
@@ -50,6 +42,20 @@ public:
     void in_dock_status();
 
     void patrol_move_to_first();
+
+    void attack(weak_ptr<Boat>);
+
+    void course(double,double);
+
+    void dock(weak_ptr<Port>);
+
+    void position(double,double,double);
+
+    void setAskForFuel(bool);
+
+    void setWaiting(bool);
+
+    int getMAXSpeed();
 
     /*operators*/
     friend ostream &operator<<(ostream &out, const patrolBoat &ship);

@@ -1,10 +1,14 @@
 #ifndef EX3_BoatS_SIMULATION_Boat_H
 #define EX3_BoatS_SIMULATION_Boat_H
 
-#include "Direction.h"
-#include "gameObj.h"
-#include "Port.h"
+#include <algorithm>
+#include <memory>
 #include <queue>
+#include <string>
+#include "GameObj.h"
+#include "Direction.h"
+#include "Location.h"
+#include "Port.h"
 
 using namespace std;
 
@@ -31,8 +35,8 @@ struct Order {
           double arg_x, double arg_y, int containers) :
             ord(arg_ord), deg(arg_deg), speed(arg_speed), x(arg_x), y(arg_y),
             curr_num_of_containers(containers) {
-        port = std::move(p);
-        boat = std::move(b);
+        port = p;
+        boat = b;
     };
 
 };
@@ -43,17 +47,17 @@ struct unload_Port {
     int capacity;
 
     unload_Port(weak_ptr<Port> p, int cap) : capacity(cap) {
-        port = std::move(p);
+        port = p;
     }
 
 };
 
 /*****************************************/
-class freighterBoat;
-
-class cruiserBoat;
-
-class patrolBoat;
+//class freighterBoat;
+//
+//class cruiserBoat;
+//
+//class patrolBoat;
 /*****************************************/
 class Boat : public gameObj {
 protected:
@@ -97,17 +101,23 @@ public:
 
     Boat &operator=(Boat &&) = delete;
 
-    virtual int getMAXSpeed();
-
     Location getCurrLocation();
 
     string getName() const;
 
+    double getFuel() const;
+
+    double getMaxFuel() const;
+
+    virtual int getMAXSpeed() = 0;
+
     void setAvailable(bool b);
 
-    virtual void setAskForFuel(bool b);
-
     void addFuel(int cap);
+
+    virtual void setWaiting(bool b) = 0;
+
+    virtual void setAskForFuel(bool b) = 0;
 
     void addOrder(const string &ord_str, int deg = 0, double speed = 0, double x = 0, double y = 0,
              weak_ptr<Port> port = weak_ptr<Port>(), weak_ptr<Boat> boat = weak_ptr<Boat>(),
@@ -117,7 +127,7 @@ public:
 
     virtual Boat &operator--();
 
-    virtual void course(int deg, double speed) = 0;
+    virtual void course(double deg, double speed) = 0;
 
     virtual void position(double x, double y, double speed) = 0;
 
@@ -139,7 +149,6 @@ public:
     virtual void patrol_move_to_first() =0;
 
     virtual void add_load_dest(weak_ptr<Port> load_port);
-
     virtual void add_unload_dest(weak_ptr<Port> unload_port, int capacity);
 
     virtual bool operator>(const Boat &other) const;
