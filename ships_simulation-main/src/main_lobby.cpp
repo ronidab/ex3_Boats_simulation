@@ -24,16 +24,18 @@ using namespace std;
 //1.	run tests for terminal
 //2.	FileParser raises problem with calling Port's different c'tors.
 /*************************/
-int main(int argc, char **argv) {
+int main() {
+    cout <<"hiush!"<<endl;
+//    int argc, char **argv
 
-	if( argc < 2 )	{
-		cerr << "ERROR: no input file was given.";
-		exit(1);
-	}
-
-	Controller simulation_control;
-	simulation_control.load_data(argv[1]);
-	simulation_control.run();
+//	if( argc < 2 )	{
+//		cerr << "ERROR: no input file was given.";
+//		exit(1);
+//	}
+//
+//	Controller simulation_control;
+//	simulation_control.load_data(argv[1]);
+//	simulation_control.run();
 
     return 0;
 }

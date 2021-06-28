@@ -1,6 +1,4 @@
 #include "freighterBoat.h"
-#include "Direction.h"
-#include<bits/stdc++.h>
 
 freighterBoat::freighterBoat(string boat_name, int containers_capacity, int res) : Boat(boat_name, MAX_FRI_FUEL, res,
                                                                                          containers_capacity),
@@ -237,7 +235,6 @@ ostream &operator<<(ostream &out, const freighterBoat &ship) {
             break;
 
         default:
-            cerr << "WTFFFFF" << endl;
             break;
     }
 

@@ -55,7 +55,7 @@ void Terminal::run()	{
 				//*in case of freighter boat -> capacity of possible containers
 				//*in case of cruiser boat -> attack range
 				if(s.tellg() != -1) s >> cap_range;
-				else cap_range = 0; ///????
+				else cap_range = 0;
 
 				str_x = str_x.substr(1,5);
 				str_y = str_y.substr(0,5);

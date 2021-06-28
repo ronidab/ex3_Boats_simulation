@@ -31,7 +31,7 @@ public:
 	/*class functions*/
 	void show();
     void _default();
-    void size(int n) throw(invalid_size_exception);
+    void size(int n);
     void zoom(double);
     void pan(double x, double y);
 

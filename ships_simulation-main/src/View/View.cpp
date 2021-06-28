@@ -125,7 +125,7 @@ void View::_default()	{
 	axis_base = Location(-10,-10);
 }
 /***********************************/
-void View::size(int n) throw(invalid_size_exception)	{
+void View::size(int n) {
 	if( n > MAX_MAP_SIZE || n < MIN_MAP_SIZE )	{
 		throw( invalid_size_exception() );
 	}

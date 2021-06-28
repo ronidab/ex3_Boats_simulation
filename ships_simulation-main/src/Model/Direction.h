@@ -2,7 +2,7 @@
 #define Direction_H_
 #include "Location.h"
 /*****************************/
-class Direction	{ // this class represesnts a Direction in a euclidean space using two paremeters:
+class Direction	{ // this class represents a Direction in a euclidean space using two parameters:
     // degree (polar) and vector (cartesian).
 
 private:

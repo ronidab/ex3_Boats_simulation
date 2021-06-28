@@ -53,11 +53,11 @@ struct unload_Port {
 };
 
 /*****************************************/
-//class freighterBoat;
-//
-//class cruiserBoat;
-//
-//class patrolBoat;
+class freighterBoat;
+
+class cruiserBoat;
+
+class patrolBoat;
 /*****************************************/
 class Boat : public gameObj {
 protected:

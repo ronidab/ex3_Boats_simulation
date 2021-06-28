@@ -1,3 +1,6 @@
+#ifndef __TERMINAL_H__
+#define __TERMINAL_H_
+
 #include <exception>
 #include <string>
 #include "../View/View.h"
@@ -22,3 +25,6 @@ public:
     void run();
 };
 /*****************************/
+
+#endif
+
