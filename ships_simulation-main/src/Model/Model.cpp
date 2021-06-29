@@ -42,7 +42,7 @@ void Model::go() { // loop of "update" for all objects
 /*************************************/
 void Model::create(const string &boat_name, const string &boat_type, int x, int y, int res_pow, int cap_range) {
     //add boat to data
-    Model::getInstance()->getAllBoats().push_back(Boat::createBoat(boat_name,boat_type,x,y,res_pow,cap_range));
+    all_boats.push_back(Boat::createBoat(boat_name,boat_type,x,y,res_pow,cap_range));
 //    if (boat_type == "Freighter") {
 //        shared_ptr<Boat> new_boat (new freighterBoat(boat_name, cap_range, res_pow));
 //        all_boats.push_back(new_boat);
