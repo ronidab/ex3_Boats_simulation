@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../src/View/view_main.cpp"
-#include "../src/Model/model_main.cpp"
-#include "../src/Controller/controller_main.cpp"
+#include "Controller/Controller.h"
+#include "Model/Model.h"
+#include "View/View.h"
 using namespace std;
 /*************************/
 //TODO: to be implemented/fixed:
@@ -24,18 +24,20 @@ using namespace std;
 //1.	run tests for terminal
 //2.	FileParser raises problem with calling Port's different c'tors.
 /*************************/
-int main() {
-    cout <<"hiush!"<<endl;
-//    int argc, char **argv
 
-//	if( argc < 2 )	{
-//		cerr << "ERROR: no input file was given.";
-//		exit(1);
-//	}
-//
-//	Controller simulation_control;
-//	simulation_control.load_data(argv[1]);
-//	simulation_control.run();
+int main(int argc, char const *argv[])
+{
+	cout << "hiush!" << endl;
 
-    return 0;
+	if (argc < 2)
+	{
+		cerr << "ERROR: no input file was given.";
+		exit(1);
+	}
+
+	Controller simulation_control;
+	simulation_control.load_data(argv[1]);
+	simulation_control.run();
+
+	return 0;
 }

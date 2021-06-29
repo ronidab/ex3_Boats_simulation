@@ -7,12 +7,14 @@
 class Boat;
 class Port;
 /******************************/
-class gameObj	{
-    bool update_ready;
+class GameObj
+{
+	bool update_ready;
+
 public:
-    gameObj();
-    virtual ~gameObj()	{};
-    virtual void update() = 0;
+	GameObj();
+	virtual ~GameObj(){};
+	virtual void update() = 0;
 };
 /******************************/
 #endif

@@ -1,8 +1,8 @@
 
-#include "gameObj.h"
+#include "GameObj.h"
 #include "Boat.h"
 #include "Port.h"
 /*****************/
 // this file was generated for includings issues only.
 /*****************/
-gameObj::gameObj():update_ready(false)	{}
+GameObj::GameObj() : update_ready(false) {}
