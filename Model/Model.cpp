@@ -8,7 +8,6 @@
 #include "Port.h"
 #include "Boat.h"
 /*************************************/
-// TODO: tal
 shared_ptr<Model> Model::inst = nullptr;
 Model::Model() : all_ports(), all_boats(){};
 Model::~Model() {}
@@ -58,26 +57,37 @@ void Model::go()
 		port.get()->update();
 	}
 }
-// TODO: tal
+
 bool Model::isBoatExist(const string &boat_name)
 {
+    for(auto& b: all_boats){
+        if(b.get()->getName() == boat_name)return true;
+    }
 	return false;
 };
-// TODO: tal
+
 bool Model::isPortExist(const string &port_name)
 {
-
+    for(auto& p: all_ports){
+        if(p.get()->getPortName() == port_name)return true;
+    }
 	return false;
 };
-// TODO: tal
+
 weak_ptr<Boat> Model::getBoat(const string &boat_name)
 {
+    for(auto& b: all_boats){
+            if(b.get()->getName() == boat_name)return b;
+    }
+    return this->all_boats[0];
 
-	return this->all_boats[0];
 };
-// TODO: tal
+
 weak_ptr<Port> Model::getPort(const string &port_name)
 {
+    for(auto& p: all_ports){
+        if(p.get()->getPortName() == port_name)return p;
+    }
 	return this->all_ports[0];
 };
 /*************************************/

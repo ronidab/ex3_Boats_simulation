@@ -15,7 +15,7 @@ private:
 
 public:
 	CruiserBoat(string boat_name, int pow, int range) : Boat(boat_name, 0, pow), attack_range(range){};
-	virtual ~CruiserBoat(){/* TODO */};
+	virtual ~CruiserBoat(){};
 	void course(double deg, double speed);
 	void position(double x, double y, double speed);
 	void attack(weak_ptr<Boat> boat);

@@ -151,9 +151,8 @@ public:
 
 	virtual void patrol_move_to_first() = 0;
 
-	// TODO: tal
 	virtual void add_load_dest(weak_ptr<Port> load_port){};
-	// TODO:tal
+
 	virtual void add_unload_dest(weak_ptr<Port> unload_port, int capacity){};
 
 	virtual bool operator>(const Boat &other) const;
