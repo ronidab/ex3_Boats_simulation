@@ -174,8 +174,9 @@ void FreighterBoat::unload_boat()
 	//else
 	dest_port.lock()->load_port(to_unload);
 	curr_num_of_containers -= to_unload;
-	// TODO: tal  - iterators are not of the same type
-	// ports_to_unload.erase(find(ports_to_unload.begin(), ports_to_unload.end(), dest_port));
+
+    ports_to_unload.erase(std::remove_if(ports_to_unload.begin(), ports_to_unload.end(), [this](unload_Port& p){ return p.port.lock() == dest_port.lock();}), ports_to_unload.end());
+
 	type = None;
 }
 
@@ -187,10 +188,9 @@ void FreighterBoat::load_boat()
 	curr_num_of_containers = MAX_CONTAINERS_CAPACITY;
 	//delete port from load ports list
 
-	// TODO: tal - i think find needs an operator== for the type weak_ptr<Port> which doesnt exist
-	// consider using a lambda expression to lock the weak ptrs before comparing
-	// dest_port.lock() == dest_port.lock()
-	ports_to_load.erase(find_if(ports_to_load.begin(), ports_to_load.end(), dest_port));
+
+    ports_to_load.erase(std::remove_if(ports_to_load.begin(), ports_to_load.end(), [this](weak_ptr<Port>& p){ return p.lock() == dest_port.lock();}), ports_to_load.end());
+
 }
 
 /*************************************/

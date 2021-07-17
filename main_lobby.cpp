@@ -4,7 +4,6 @@
 #include "View/View.h"
 using namespace std;
 /*************************/
-//TODO: to be implemented/fixed:
 
 // -----GENERALL-----
 //1.	write descriptions for all functions.
@@ -14,7 +13,6 @@ using namespace std;
 
 // -----MODEL-----
 //1.	move through _todo's to see if any assignements left behind
-//2.	problems with operator == (where is it calling errors from ???)
 
 // -----VIEW-----
 //1.	fix column and row display to match map size.
@@ -22,13 +20,11 @@ using namespace std;
 
 // -----CONTROLLER-----
 //1.	run tests for terminal
-//2.	FileParser raises problem with calling Port's different c'tors.
+
 /*************************/
 
 int main(int argc, char const *argv[])
 {
-	cout << "hiush!" << endl;
-
 	if (argc < 2)
 	{
 		cerr << "ERROR: no input file was given.";

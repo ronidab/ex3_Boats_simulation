@@ -68,6 +68,9 @@ struct unload_Port
 	{
 		port = p;
 	}
+	bool operator==(unload_Port& other){
+	    return other.port.lock() == port.lock();
+	}
 };
 
 class Boat : public GameObj
